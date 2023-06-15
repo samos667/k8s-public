@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qbitorrent-helm-chart-value-overrides
+  namespace: vpn-space
+data:
+  values.yaml: |-
+    image:
+      repository: ghcr.io/onedr0p/qbittorrent
+      tag: 4.5.3@sha256:5f97e1e998a498cc27ba08abcdad5be61bd396f833157c6b6c1f3d672915f2fa
+
+
+    env:
+      TZ: "Europe/Paris"
+      QBITTORRENT__PORT: 8080
+      QBITTORRENT__BT_PORT: 34175
+
+    hostname: torrent
+
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+      bittorrent:
+        enabled: true
+        type: ClusterIP
+        ports:
+          bittorrent:
+            enabled: true
+            port: 34175
+            protocol: TCP
+            targetPort: 34175
+
+    persistence:
+      config:
+        enabled: true
+        retain: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        storageClass: "speed-data"
+        size: 2Gi
+      downloads:
+        enabled: true
+        type: hostPath
+        hostPath: /mnt/big-data/media/downloads
+        mountPath: /data/downloads
+
+    podSecurityContext:
+      runAsUser: 1667
+      runAsGroup: 1667
+      fsGroup: 1667
+
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 2Gi

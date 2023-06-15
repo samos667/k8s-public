@@ -1,0 +1,79 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: qbitorrent
+  namespace: vpn-space
+spec:
+  interval: 10m
+  path: ./services/multimedia/qbitorrent/
+  prune: true
+  timeout: 15m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  # healthChecks:
+  #   - apiVersion: apps/v1
+  #     kind: Deployment
+  #     name: qbitorrent
+  #     namespace: vpn-space
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: radarr
+#   namespace: vpn-space
+# spec:
+#   interval: 10m
+#   path: ./services/multimedia/radarr/
+#   prune: true
+#   timeout: 15m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#     namespace: flux-system
+#   healthChecks:
+#     - apiVersion: apps/v1
+#       kind: Deployment
+#       name: radarr
+#       namespace: vpn-space
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: prowlarr
+#   namespace: vpn-space
+# spec:
+#   interval: 10m
+#   path: ./services/multimedia/prowlarr/
+#   prune: true
+#   timeout: 15m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#     namespace: flux-system
+#   healthChecks:
+#     - apiVersion: apps/v1
+#       kind: Deployment
+#       name: prowlarr
+#       namespace: vpn-space
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: sonarr
+#   namespace: vpn-space
+# spec:
+#   interval: 10m
+#   path: ./services/multimedia/sonarr/
+#   prune: true
+#   timeout: 15m
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#     namespace: flux-system
+#   healthChecks:
+#     - apiVersion: apps/v1
+#       kind: Deployment
+#       name: sonarr
+#       namespace: vpn-space

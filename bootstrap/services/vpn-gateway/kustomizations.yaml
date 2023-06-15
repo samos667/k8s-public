@@ -1,0 +1,19 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: vpn-gateway
+  namespace: vpn-gateway
+spec:
+  interval: 10m
+  path: ./services/vpn-gateway
+  prune: true
+  timeout: 15m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: pod-gateway
+      namespace: vpn-gateway
